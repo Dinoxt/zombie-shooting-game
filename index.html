@@ -123,94 +123,67 @@
             <!-- Game Canvas -->
             <canvas id="gameCanvas" width="1280" height="720" class="block w-full h-full cursor-crosshair"></canvas>
 
-            <!-- TOP HUD OVERLAY (Cup Pong Style) -->
-            <div class="absolute top-3 left-4 right-4 flex items-center justify-between pointer-events-none z-10">
-                <!-- Top-Left Score & Level Pill (Matches 0 - 0 pill in Ref 4) -->
-                <div class="flex items-center gap-2 pointer-events-auto">
-                    <div class="cup-pill px-4 py-1.5 text-sm md:text-base">
+            <!-- SLIM TOP HUD BAR (Tucked strictly inside the 45px top border wall so 100% of the arena is unobstructed!) -->
+            <div class="absolute top-0 left-0 right-0 h-[36px] sm:h-[42px] px-2 sm:px-4 flex items-center justify-between pointer-events-none z-10">
+                <!-- Left: Level Badge, Score & Compact Ammo -->
+                <div class="flex items-center gap-1 sm:gap-2 pointer-events-none">
+                    <div class="cup-pill px-2 py-0.5 text-[10px] sm:text-xs pointer-events-none">
                         <span class="text-[#65a30d] font-black" id="hud-level-badge">LVL 1/50</span>
-                        <span class="text-gray-400 font-black">-</span>
-                        <span class="text-[#0284c7] font-black" id="hud-stars-badge">★★★</span>
+                        <span class="text-gray-400 font-black hidden sm:inline">-</span>
+                        <span class="text-[#0284c7] font-black hidden sm:inline" id="hud-stars-badge">★★★</span>
                     </div>
-                    <button id="btn-levels" class="cup-pill px-3.5 py-1.5 text-xs md:text-sm uppercase tracking-wider">
-                        <span>📋</span> 50 Levels
-                    </button>
-                    <button id="btn-hint" class="cup-pill px-3.5 py-1.5 text-xs md:text-sm uppercase tracking-wider bg-amber-200" title="Show Optimal Trick-Shot Angle (H)">
-                        <span>💡</span> Hint
-                    </button>
-                </div>
 
-                <!-- Top-Center Chunky Title -->
-                <div class="hidden lg:flex flex-col items-center pointer-events-none -mt-1">
-                    <h1 class="chunky-title text-2xl md:text-4xl font-black tracking-tight leading-none">
-                        Zombie Pong
-                    </h1>
-                    <span id="hud-chapter-subtitle" class="text-[11px] font-black uppercase tracking-widest bg-slate-900/80 text-lime-300 px-3 py-0.5 rounded-full mt-1">
-                        Chapter 1: Ricochet & Barrels
-                    </span>
-                </div>
-
-                <!-- Top-Right Action Pills (Matches EXIT pill in Ref 4) -->
-                <div class="flex items-center gap-2 pointer-events-auto">
-                    <button id="btn-skip" class="cup-pill px-3.5 py-1.5 text-xs md:text-sm uppercase tracking-wider" title="Skip to Next Level">
-                        ⏭ Skip
-                    </button>
-                    <button id="btn-restart" class="cup-pill px-3.5 py-1.5 text-xs md:text-sm uppercase tracking-wider" title="Restart Level (R)">
-                        🔄 Retry
-                    </button>
-                    <button id="btn-pause" class="cup-pill px-3.5 py-1.5 text-xs md:text-sm uppercase tracking-wider">
-                        ⏸ Menu
-                    </button>
-                </div>
-            </div>
-
-            <!-- BOTTOM HUD OVERLAY (Combines Stupid Zombies Ammo/Score + Cup Pong Bottom Pills) -->
-            <div class="absolute bottom-2.5 left-5 right-5 flex items-center justify-between pointer-events-none z-10">
-                
-                <!-- Bottom-Left: Shotgun Shells + Special Grenade Launcher Pill -->
-                <div class="flex items-center gap-3 pointer-events-auto">
-                    <div class="cup-pill px-3.5 py-1.5 flex items-center gap-2" title="Remaining Ricochet Shells">
-                        <span class="text-xs font-extrabold uppercase text-slate-600 mr-1 hidden sm:inline">Ammo</span>
-                        <div id="ammo-container" class="flex items-center gap-1.5 min-w-[70px] h-6">
+                    <div class="cup-pill px-2 py-0.5 flex items-center gap-1 pointer-events-none" title="Remaining Ricochet Shells">
+                        <div id="ammo-container" class="flex items-center gap-0.5 h-3.5 sm:h-4">
                             <!-- Shells injected via JS -->
                         </div>
                     </div>
 
-                    <button id="btn-super-shot" class="cup-pill px-3.5 py-1.5 text-xs md:text-sm flex items-center gap-1.5 border-[#111827] bg-[#fef08a]" title="Toggle Super Explosive Bouncer (1 per level)">
+                    <button id="btn-super-shot" class="cup-pill px-2 py-0.5 text-[10px] sm:text-xs flex items-center gap-0.5 border-[#111827] bg-[#fef08a] pointer-events-auto" title="Toggle Super Explosive Bouncer">
                         <span>💣</span>
                         <span id="super-count-text" class="font-black">x1</span>
                     </button>
-                </div>
 
-                <!-- Bottom-Center: Cup Pong Style Pill Controls + Big Score -->
-                <div class="flex items-center gap-2.5 pointer-events-auto">
-                    <button id="btn-sound" class="cup-pill px-3.5 py-1.5 text-xs md:text-sm">
-                        <span id="sound-icon">🔊</span>
-                        <span id="sound-label">Sound</span>
-                    </button>
-
-                    <div class="px-3 py-0.5 flex items-center">
-                        <span id="hud-score" class="chunky-score text-2xl md:text-3xl font-black tracking-wider">0</span>
+                    <div class="px-1.5 flex items-center pointer-events-none">
+                        <span id="hud-score" class="chunky-subtitle text-sm sm:text-lg font-black tracking-wider">0</span>
                     </div>
-
-                    <button id="btn-aim-mode" class="cup-pill px-3.5 py-1.5 text-xs md:text-sm">
-                        <span>🎯</span>
-                        <span id="aim-mode-label">Release: Shoot</span>
-                    </button>
                 </div>
 
-                <!-- Bottom-Right: Dedicated Mobile FIRE Button & Next Level shortcut -->
-                <div class="flex items-center gap-2 pointer-events-auto">
-                    <button id="btn-fire-mobile" class="cup-pill cup-pill-amber px-5 py-1.5 text-sm md:text-base uppercase tracking-wider">
-                        🔥 FIRE
+                <!-- Center: Compact Title (Desktop Only, pointer-events-none) -->
+                <div class="hidden xl:flex items-center gap-2 pointer-events-none">
+                    <span class="chunky-subtitle text-base font-black tracking-tight">Zombie Pong</span>
+                    <span id="hud-chapter-subtitle" class="text-[10px] font-black uppercase tracking-wider bg-slate-900/90 text-lime-300 px-2 py-0.5 rounded-full">
+                        Chapter 1
+                    </span>
+                </div>
+
+                <!-- Right: Compact Action Pills inside top border -->
+                <div class="flex items-center gap-1 sm:gap-1.5 pointer-events-auto">
+                    <button id="btn-hint" class="cup-pill px-2 py-0.5 text-[10px] sm:text-xs bg-amber-200" title="Show Optimal Trick-Shot Angle (H)">
+                        <span>💡</span><span class="hidden md:inline">Hint</span>
+                    </button>
+                    <button id="btn-levels" class="cup-pill px-2 py-0.5 text-[10px] sm:text-xs" title="Select Level">
+                        <span>📋</span><span class="hidden md:inline">Levels</span>
+                    </button>
+                    <button id="btn-skip" class="cup-pill px-2 py-0.5 text-[10px] sm:text-xs" title="Skip to Next Level">
+                        <span>⏭</span><span class="hidden md:inline">Skip</span>
+                    </button>
+                    <button id="btn-restart" class="cup-pill px-2 py-0.5 text-[10px] sm:text-xs" title="Restart Level (R)">
+                        <span>🔄</span>
+                    </button>
+                    <button id="btn-sound" class="cup-pill px-2 py-0.5 text-[10px] sm:text-xs" title="Toggle Sound">
+                        <span id="sound-icon">🔊</span>
+                    </button>
+                    <button id="btn-pause" class="cup-pill px-2 py-0.5 text-[10px] sm:text-xs" title="Pause / Menu">
+                        <span>⏸</span>
                     </button>
                 </div>
             </div>
 
             <!-- Portrait Orientation Helpful Floating Banner (Dismissible) -->
-            <div id="portrait-hint" class="absolute top-16 left-1/2 -translate-x-1/2 z-30 pointer-events-auto">
-                <div class="cup-pill px-4 py-1.5 text-xs bg-amber-300 text-slate-900 flex items-center gap-2 shadow-lg">
-                    <span>📱 Rotate phone to <b>Landscape</b> for full view!</span>
+            <div id="portrait-hint" class="absolute top-12 left-1/2 -translate-x-1/2 z-30 pointer-events-auto">
+                <div class="cup-pill px-3 py-1 text-[11px] bg-amber-300 text-slate-900 flex items-center gap-2 shadow-lg">
+                    <span>📱 Rotate phone to <b>Landscape</b> for best view!</span>
                     <button onclick="document.getElementById('portrait-hint').style.display='none'" class="font-black underline ml-1">OK</button>
                 </div>
             </div>
@@ -1053,8 +1026,8 @@
         let superArmed = false;
         let showHintTimer = 0;
         let aimAngle = -0.25;
-        let isDraggingAim = false;
-        let releaseToShoot = true;
+        let aimTarget = { x: 640, y: 360, active: false };
+        let activePointerId = null;
         let gameState = 'PLAYING';
 
         let hero = { x: 115, y: 650, gunX: 135, gunY: 600 };
@@ -1176,7 +1149,7 @@
                 const shellSVG = document.createElement('div');
                 shellSVG.className = `transition-all duration-200 ${spent ? 'opacity-25 scale-75' : 'scale-100'}`;
                 shellSVG.innerHTML = `
-                    <svg width="16" height="24" viewBox="0 0 18 26">
+                    <svg width="11" height="16" viewBox="0 0 18 26">
                         <path d="M3 9 C3 3, 15 3, 15 9 L15 20 L3 20 Z" fill="#ef4444" stroke="#111827" stroke-width="2.5"/>
                         <rect x="3" y="19" width="12" height="5" rx="1" fill="#facc15" stroke="#111827" stroke-width="2.5"/>
                         <line x1="6" y1="8" x2="6" y2="16" stroke="#fca5a5" stroke-width="2" stroke-linecap="round"/>
@@ -2354,6 +2327,42 @@
                     ctx.restore();
                 }
 
+                // Direct Touch/Pointer Crosshair Reticle at the exact (x, y) touch/mouse coordinate
+                if (aimTarget.active) {
+                    ctx.save();
+                    ctx.translate(aimTarget.x, aimTarget.y);
+
+                    // Outer dark ring + crisp neon reticle
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 18, 0, Math.PI * 2);
+                    ctx.lineWidth = 5;
+                    ctx.strokeStyle = OUTLINE_COLOR;
+                    ctx.stroke();
+                    ctx.lineWidth = 2.5;
+                    ctx.strokeStyle = superArmed ? '#f43f5e' : '#facc15';
+                    ctx.stroke();
+
+                    // Crosshair ticks
+                    ctx.beginPath();
+                    ctx.moveTo(-24, 0); ctx.lineTo(-10, 0);
+                    ctx.moveTo(10, 0); ctx.lineTo(24, 0);
+                    ctx.moveTo(0, -24); ctx.lineTo(0, -10);
+                    ctx.moveTo(0, 10); ctx.lineTo(0, 24);
+                    ctx.lineWidth = 4;
+                    ctx.strokeStyle = OUTLINE_COLOR;
+                    ctx.stroke();
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.stroke();
+
+                    // Center dot
+                    ctx.beginPath();
+                    ctx.arc(0, 0, 3.5, 0, Math.PI * 2);
+                    ctx.fillStyle = '#ef4444';
+                    ctx.fill();
+                    ctx.restore();
+                }
+
                 // Helpful subtitle banner at top of arena
                 if (lvl.subtitle) {
                     ctx.save();
@@ -2430,62 +2439,61 @@
         }
 
         // ============================================================================
-        // MAIN GAME LOOP
-        // ============================================================================
-        function gameLoop() {
-            updatePhysics();
-
-            ctx.clearRect(0, 0, GAME_W, GAME_H);
-            drawArenaBackground();
-            drawObstacles();
-            drawGadgets();
-            drawBarrels();
-            drawZombies();
-            drawHero();
-            drawAimLaserAndBullets();
-            drawParticlesAndPopups();
-
-            requestAnimationFrame(gameLoop);
-        }
-
-        // ============================================================================
-        // UNIFIED MOUSE (LAPTOP) & TOUCH (PHONE) CONTROLS
+        // UNIFIED DIRECT TOUCH & POINTER AIMING (PHONE & LAPTOP)
+        // Touching or moving anywhere on the canvas immediately locks the laser
+        // directly onto that exact (x, y) coordinate and fires cleanly on release!
         // ============================================================================
         function updateAimFromClientPos(clientX, clientY) {
             const rect = canvas.getBoundingClientRect();
-            const gx = (clientX - rect.left) / canvasScale;
-            const gy = (clientY - rect.top) / canvasScale;
-            aimAngle = Math.atan2(gy - hero.gunY, gx - hero.gunX);
+            if (!rect.width || !rect.height) return;
+
+            // Exact mapping from screen pixels to internal 1280x720 canvas coordinates
+            const gx = ((clientX - rect.left) / rect.width) * GAME_W;
+            const gy = ((clientY - rect.top) / rect.height) * GAME_H;
+
+            aimTarget.x = Math.max(0, Math.min(GAME_W, gx));
+            aimTarget.y = Math.max(0, Math.min(GAME_H, gy));
+            aimAngle = Math.atan2(aimTarget.y - hero.gunY, aimTarget.x - hero.gunX);
         }
 
-        // Mouse Controls (Laptop/Desktop)
-        canvas.addEventListener('mousemove', e => {
+        canvas.addEventListener('pointerdown', e => {
             if (gameState !== 'PLAYING') return;
+            e.preventDefault();
+            sfx.init();
+            activePointerId = e.pointerId;
+            aimTarget.active = true;
+            if (canvas.setPointerCapture) {
+                try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
+            }
             updateAimFromClientPos(e.clientX, e.clientY);
-        });
+        }, { passive: false });
 
-        canvas.addEventListener('mousedown', e => {
+        canvas.addEventListener('pointermove', e => {
             if (gameState !== 'PLAYING') return;
-            updateAimFromClientPos(e.clientX, e.clientY);
-            isDraggingAim = true;
-        });
+            if (e.pointerType === 'mouse' || activePointerId === e.pointerId) {
+                if (e.pointerType !== 'mouse') e.preventDefault();
+                aimTarget.active = true;
+                updateAimFromClientPos(e.clientX, e.clientY);
+            }
+        }, { passive: false });
 
-        window.addEventListener('mouseup', e => {
-            if (!isDraggingAim) return;
-            isDraggingAim = false;
-            if (e.target === canvas && gameState === 'PLAYING') {
+        canvas.addEventListener('pointerup', e => {
+            if (activePointerId !== e.pointerId) return;
+            e.preventDefault();
+            updateAimFromClientPos(e.clientX, e.clientY);
+            activePointerId = null;
+            if (gameState === 'PLAYING') {
                 fireShot();
+            }
+        }, { passive: false });
+
+        canvas.addEventListener('pointercancel', e => {
+            if (activePointerId === e.pointerId) {
+                activePointerId = null;
+                aimTarget.active = false;
             }
         });
 
-        // Touch Controls (Mobile Phone)
-        canvas.addEventListener('touchstart', e => {
-            if (gameState !== 'PLAYING') return;
-            e.preventDefault();
-            const touch = e.touches[0];
-            isDraggingAim = true;
-            updateAimFromClientPos(touch.clientX, touch.clientY);
-        }, { passive: false });
         // Keyboard Shortcuts (Space to shoot, R to retry, H for Hint)
         window.addEventListener('keydown', e => {
             if (e.code === 'Space' && gameState === 'PLAYING') {
@@ -2528,8 +2536,6 @@
             });
         };
 
-        document.getElementById('btn-fire-mobile').onclick = () => fireShot();
-
         document.getElementById('btn-super-shot').onclick = () => {
             if (superAmmo > 0) {
                 superArmed = !superArmed;
@@ -2542,14 +2548,6 @@
         document.getElementById('btn-sound').onclick = () => {
             sfx.enabled = !sfx.enabled;
             document.getElementById('sound-icon').textContent = sfx.enabled ? '🔊' : '🔇';
-            document.getElementById('sound-label').textContent = sfx.enabled ? 'Sound' : 'Muted';
-        };
-
-        document.getElementById('btn-aim-mode').onclick = () => {
-            releaseToShoot = !releaseToShoot;
-            document.getElementById('aim-mode-label').textContent = releaseToShoot
-                ? 'Release: Shoot'
-                : 'Tap 🔥 to Shoot';
         };
 
         // Modal Buttons
@@ -2563,6 +2561,25 @@
                 hideModal();
             }
         });
+
+        // ============================================================================
+        // MAIN GAME LOOP
+        // ============================================================================
+        function gameLoop() {
+            updatePhysics();
+
+            ctx.clearRect(0, 0, GAME_W, GAME_H);
+            drawArenaBackground();
+            drawGadgets();
+            drawObstacles();
+            drawBarrels();
+            drawZombies();
+            drawHero();
+            drawAimLaserAndBullets();
+            drawParticlesAndPopups();
+
+            requestAnimationFrame(gameLoop);
+        }
 
         // Start Game on Window Load
         window.onload = function () {
